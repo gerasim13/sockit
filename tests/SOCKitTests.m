@@ -42,10 +42,6 @@ NSString *sockitBetterURLEncodeString(NSString *unencodedString);
 @synthesize llv;
 @synthesize string;
 
-- (void)dealloc {
-  [string release]; string = nil;
-  [super dealloc];
-}
 
 - (id)initWithId:(NSInteger)anIdent floatValue:(CGFloat)anFlv doubleValue:(double)aDv longLongValue:(long long)anLlv stringValue:(NSString *)aString {
   if ((self = [super init])) {
@@ -251,8 +247,8 @@ NSString *sockitBetterURLEncodeString(NSString *unencodedString);
 
 // NSString's stringByAddingPercentEscapes doesn't do a complete job (it ignores "/?&", among others)
 NSString *sockitBetterURLEncodeString(NSString *unencodedString) {
-    NSString * encodedString = (NSString *)CFURLCreateStringByAddingPercentEscapes( NULL, (CFStringRef)unencodedString, NULL,
-                                                                                   (CFStringRef)@"!*'();:@&=+$,/?%#[]", NSASCIIStringEncoding );
-    return [encodedString autorelease];
+    NSString * encodedString = (NSString *)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes( NULL, (CFStringRef)unencodedString, NULL,
+                                                                                   (CFStringRef)@"!*'();:@&=+$,/?%#[]", NSASCIIStringEncoding ));
+    return encodedString;
 }
 
