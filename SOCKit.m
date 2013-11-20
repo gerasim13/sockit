@@ -54,9 +54,9 @@ NSString* kTemporaryBackslashToken = @"/backslash/";
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 @interface SOCPattern()
 
-@property (nonatomic, retain) NSString *patternString;
-@property (nonatomic, retain) NSArray *tokens;
-@property (nonatomic, retain) NSArray *parameters;
+@property (nonatomic, strong) NSString *patternString;
+@property (nonatomic, strong) NSArray *tokens;
+@property (nonatomic, strong) NSArray *parameters;
 
 - (void)_compilePattern;
 
@@ -76,9 +76,9 @@ NSString* kTemporaryBackslashToken = @"/backslash/";
     
     if (copy)
     {
-        [copy setPatternString:[[self.patternString copy] autorelease]];
-        [copy setTokens:[[self.tokens copy] autorelease]];
-        [copy setParameters:[[self.parameters copy] autorelease]];
+        [copy setPatternString:[self.patternString copy]];
+        [copy setTokens:[self.tokens copy]];
+        [copy setParameters:[self.parameters copy]];
     }
     
     return copy;
@@ -86,12 +86,6 @@ NSString* kTemporaryBackslashToken = @"/backslash/";
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-- (void)dealloc {
-  [_patternString release]; _patternString = nil;
-  [_tokens release]; _tokens = nil;
-  [_parameters release]; _parameters = nil;
-  [super dealloc];
-}
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -107,7 +101,7 @@ NSString* kTemporaryBackslashToken = @"/backslash/";
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 + (id)patternWithString:(NSString *)string {
-  return [[[self alloc] initWithString:string] autorelease];
+  return [[self alloc] initWithString:string];
 }
 
 
@@ -206,14 +200,13 @@ NSString* kTemporaryBackslashToken = @"/backslash/";
     }
   }
 
-  [_tokens release];
   _tokens = [tokens copy];
-  [_parameters release]; _parameters = nil;
+   _parameters = nil;
   if ([parameters count] > 0) {
     _parameters = [parameters copy];
   }
-  [tokens release]; tokens = nil;
-  [parameters release]; parameters = nil;
+   tokens = nil;
+   parameters = nil;
 }
 
 
@@ -232,7 +225,7 @@ NSString* kTemporaryBackslashToken = @"/backslash/";
     [mutableToken replaceOccurrencesOfString:@"\\@" withString:@"@" options:0 range:NSMakeRange(0, [mutableToken length])];
     [mutableToken replaceOccurrencesOfString:@"\\:" withString:@":" options:0 range:NSMakeRange(0, [mutableToken length])];
     [mutableToken replaceOccurrencesOfString:kTemporaryBackslashToken withString:@"\\" options:0 range:NSMakeRange(0, [mutableToken length])];
-    return [mutableToken autorelease];
+    return mutableToken;
   }
 }
 
@@ -254,7 +247,7 @@ NSString* kTemporaryBackslashToken = @"/backslash/";
   }
 
   NSInteger tokenIndex = 0;
-  for (id token in _tokens) {
+  for (__strong id token in _tokens) {
 
     if ([token isKindOfClass:[NSString class]]) {
       // Replace the escaped characters in the token before we start comparing the string.
@@ -315,7 +308,7 @@ NSString* kTemporaryBackslashToken = @"/backslash/";
   }
 
   if (nil != pValues) {
-    *pValues = [[values copy] autorelease];
+    *pValues = [values copy];
   }
   
   return validUpUntil == stringLength && matchingTokens == [_tokens count];
@@ -363,7 +356,8 @@ NSString* kTemporaryBackslashToken = @"/backslash/";
       break;
     }
     default: {
-      [invocation setArgument:&text atIndex:index];
+        __unsafe_unretained NSString *_text = text;
+      [invocation setArgument:&_text atIndex:index];
       break;
     }
   }
@@ -392,14 +386,14 @@ NSString* kTemporaryBackslashToken = @"/backslash/";
   BOOL isInitializer = [NSStringFromSelector(selector) hasPrefix:@"init"] && [object class] == object;
 
   if (isInitializer) {
-    object = [[object alloc] autorelease];
+    object = [object alloc];
   }
 
   NSArray* values = nil;
   BOOL succeeded = [self gatherParameterValues:&values fromString:sourceString];
   NSAssert(succeeded, @"The pattern can't be used with this string.");
   
-  id returnValue = nil;
+  __unsafe_unretained id returnValue = nil;
 
   if (succeeded) {
     NSMethodSignature* sig = [object methodSignatureForSelector:selector];
@@ -436,8 +430,8 @@ NSString* kTemporaryBackslashToken = @"/backslash/";
       [kvs setObject:value forKey:parameter.string];
     }
 
-    result = [[kvs copy] autorelease];
-    [kvs release]; kvs = nil;
+    result = [kvs copy];
+     kvs = nil;
   }
 
   return result;
@@ -459,8 +453,8 @@ NSString* kTemporaryBackslashToken = @"/backslash/";
   }
 
   NSString* result = nil;
-  result = [[accumulator copy] autorelease];
-  [accumulator release]; accumulator = nil;
+  result = [accumulator copy];
+   accumulator = nil;
   return result;
 }
 
@@ -506,8 +500,7 @@ NSString* kTemporaryBackslashToken = @"/backslash/";
 @implementation SOCParameter
 
 - (void)dealloc {
-  [_string release]; _string = nil;
-  [super dealloc];
+   _string = nil;
 }
 
 - (id)initWithString:(NSString *)string {
@@ -518,7 +511,7 @@ NSString* kTemporaryBackslashToken = @"/backslash/";
 }
 
 + (id)parameterWithString:(NSString *)string {
-  return [[[self alloc] initWithString:string] autorelease];
+  return [[self alloc] initWithString:string];
 }
 
 - (NSString *)description {
@@ -526,7 +519,7 @@ NSString* kTemporaryBackslashToken = @"/backslash/";
 }
 
 - (NSString *)string {
-  return [[_string retain] autorelease];
+  return _string;
 }
 
 @end
@@ -558,6 +551,5 @@ SOCArgumentType SOCArgumentTypeForTypeAsChar(char argType) {
 NSString* SOCStringFromStringWithObject(NSString* string, id object) {
   SOCPattern* pattern = [[SOCPattern alloc] initWithString:string];
   NSString* result = [pattern stringFromObject:object];
-  [pattern release];
   return result;
 }
