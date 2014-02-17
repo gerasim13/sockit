@@ -211,4 +211,10 @@
  *
  * @see documentation for stringFromObject:
  */
-NSString* SOCStringFromStringWithObject(NSString* string, id object);
+#ifdef __cplusplus
+extern "C" {
+#endif
+extern NSString* SOCStringFromStringWithObject(NSString* string, id object);
+#ifdef __cplusplus
+}
+#endif
