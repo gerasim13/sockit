@@ -100,9 +100,7 @@
 				6612F706141FEAD500B76B8B /* AUTHORS */,
 				6612F707141FEAD500B76B8B /* LICENSE */,
 				6612F708141FEAD500B76B8B /* NOTICE */,
-				667E34CE140BD732002FD733 /* SOCKit.h */,
-				667E34CF140BD732002FD733 /* SOCKit.m */,
-				667E34DA140BD776002FD733 /* SOCKitTests.m */,
+				C94F66E3190781610094A075 /* SOCKit */,
 				660B68A814088B4A00EAAFDC /* SOCKitTests */,
 				660B688F14088B4A00EAAFDC /* Frameworks */,
 				660B688E14088B4A00EAAFDC /* Products */,
@@ -132,10 +130,20 @@
 		660B68A814088B4A00EAAFDC /* SOCKitTests */ = {
 			isa = PBXGroup;
 			children = (
+				667E34DA140BD776002FD733 /* SOCKitTests.m */,
 				667E34DC140BD77B002FD733 /* SOCKitTests-Info.plist */,
 				667E34D7140BD75B002FD733 /* InfoPlist.strings */,
 			);
 			path = SOCKitTests;
+			sourceTree = "<group>";
+		};
+		C94F66E3190781610094A075 /* SOCKit */ = {
+			isa = PBXGroup;
+			children = (
+				667E34CE140BD732002FD733 /* SOCKit.h */,
+				667E34CF140BD732002FD733 /* SOCKit.m */,
+			);
+			name = SOCKit;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
