@@ -28,10 +28,10 @@
 		660B68A214088B4A00EAAFDC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 660B689014088B4A00EAAFDC /* Foundation.framework */; };
 		660B68A414088B4A00EAAFDC /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 660B68A314088B4A00EAAFDC /* CoreGraphics.framework */; };
 		660B68A714088B4A00EAAFDC /* libSOCKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 660B688D14088B4A00EAAFDC /* libSOCKit.a */; };
-		667E34D0140BD732002FD733 /* SOCKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 667E34CE140BD732002FD733 /* SOCKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		667E34D1140BD732002FD733 /* SOCKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 667E34CF140BD732002FD733 /* SOCKit.m */; };
 		667E34DB140BD776002FD733 /* SOCKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 667E34DA140BD776002FD733 /* SOCKitTests.m */; };
 		66FAD61E140BF5E40015B014 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 667E34D7140BD75B002FD733 /* InfoPlist.strings */; };
+		C94F66E6190783EB0094A075 /* SOCKit.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 667E34CE140BD732002FD733 /* SOCKit.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +50,19 @@
 			remoteInfo = SOCKit;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		C94F66E4190783B70094A075 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/${PRODUCT_NAME}";
+			dstSubfolderSpec = 16;
+			files = (
+				C94F66E6190783EB0094A075 /* SOCKit.h in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		660B688D14088B4A00EAAFDC /* libSOCKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSOCKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -148,17 +161,6 @@
 		};
 /* End PBXGroup section */
 
-/* Begin PBXHeadersBuildPhase section */
-		660B688B14088B4A00EAAFDC /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				667E34D0140BD732002FD733 /* SOCKit.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXHeadersBuildPhase section */
-
 /* Begin PBXNativeTarget section */
 		660B688C14088B4A00EAAFDC /* SOCKit */ = {
 			isa = PBXNativeTarget;
@@ -166,7 +168,7 @@
 			buildPhases = (
 				660B688914088B4A00EAAFDC /* Sources */,
 				660B688A14088B4A00EAAFDC /* Frameworks */,
-				660B688B14088B4A00EAAFDC /* Headers */,
+				C94F66E4190783B70094A075 /* CopyFiles */,
 				66C951F8154879CE00D4191E /* Prepare Framework */,
 			);
 			buildRules = (
@@ -394,7 +396,7 @@
 				DEAD_CODE_STRIPPING = NO;
 				DSTROOT = /tmp/SOCKit.dst;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PUBLIC_HEADERS_FOLDER_PATH = Headers;
+				PUBLIC_HEADERS_FOLDER_PATH = "include/$(PRODUCT_NAME)";
 				SKIP_INSTALL = YES;
 				STRIP_STYLE = "non-global";
 			};
@@ -407,7 +409,7 @@
 				DEAD_CODE_STRIPPING = NO;
 				DSTROOT = /tmp/SOCKit.dst;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PUBLIC_HEADERS_FOLDER_PATH = Headers;
+				PUBLIC_HEADERS_FOLDER_PATH = "include/$(PRODUCT_NAME)";
 				SKIP_INSTALL = YES;
 				STRIP_STYLE = "non-global";
 			};
