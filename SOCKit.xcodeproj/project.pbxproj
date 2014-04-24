@@ -118,7 +118,9 @@
 				660B688F14088B4A00EAAFDC /* Frameworks */,
 				660B688E14088B4A00EAAFDC /* Products */,
 			);
+			indentWidth = 2;
 			sourceTree = "<group>";
+			tabWidth = 4;
 		};
 		660B688E14088B4A00EAAFDC /* Products */ = {
 			isa = PBXGroup;
