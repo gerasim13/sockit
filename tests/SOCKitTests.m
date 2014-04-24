@@ -36,13 +36,6 @@ NSString *sockitBetterURLEncodeString(NSString *unencodedString);
 
 @implementation SOCTestObject
 
-@synthesize ident;
-@synthesize flv;
-@synthesize dv;
-@synthesize llv;
-@synthesize string;
-
-
 - (id)initWithId:(NSInteger)anIdent floatValue:(CGFloat)anFlv doubleValue:(double)aDv longLongValue:(long long)anLlv stringValue:(NSString *)aString {
   if ((self = [super init])) {
     self.ident = anIdent;
