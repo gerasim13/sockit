@@ -169,7 +169,6 @@
  */
 - (NSString *)stringFromObject:(id)object;
 
-#if NS_BLOCKS_AVAILABLE
 /**
  * Returns a string with the parameters of this pattern replaced using Key-Value Coding (KVC)
  * on the receiving object, and the result is (optionally) modified or encoded by the block. 
@@ -199,7 +198,6 @@
  *      @see stringFromObject:
  */
 - (NSString *)stringFromObject:(id)object withBlock:(NSString*(^)(NSString*))block;
-#endif
 
 @end
 
