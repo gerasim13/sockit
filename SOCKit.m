@@ -273,7 +273,7 @@ NSString* kTemporaryBackslashToken = @"/backslash/";
 
       // Look ahead for the next string token match.
       if (tokenIndex + 1 < [_tokens count]) {
-        NSString* nextToken = [self _stringFromEscapedToken:[_tokens objectAtIndex:tokenIndex + 1]];
+        NSString* nextToken = [self _stringFromEscapedToken:_tokens[tokenIndex + 1]];
         NSAssert([nextToken isKindOfClass:[NSString class]], @"The token following a parameter must be a string.");
 
         NSRange nextTokenRange = [string rangeOfString:nextToken options:0 range:NSMakeRange(validUpUntil, stringLength - validUpUntil)];
@@ -369,7 +369,7 @@ NSString* kTemporaryBackslashToken = @"/backslash/";
   NSAssert(nil != method, @"The method must exist with the given invocation target.");
 
   for (NSInteger ix = 0; ix < [values count]; ++ix) {
-    NSString* value = [values objectAtIndex:ix];
+    NSString* value = values[ix];
 
     char argType[4];
     method_getArgumentType(method, (unsigned int) ix + 2, argType, sizeof(argType) / sizeof(argType[0]));
@@ -424,9 +424,9 @@ NSString* kTemporaryBackslashToken = @"/backslash/";
 
   if (succeeded) {
     for (NSInteger ix = 0; ix < [values count]; ++ix) {
-      SOCParameter* parameter = [_parameters objectAtIndex:ix];
-      id value = [values objectAtIndex:ix];
-      [kvs setObject:value forKey:parameter.string];
+      SOCParameter* parameter = _parameters[ix];
+      id value = values[ix];
+      kvs[parameter.string] = value;
     }
 
     result = [kvs copy];
@@ -447,7 +447,7 @@ NSString* kTemporaryBackslashToken = @"/backslash/";
 
     } else {
       SOCParameter* parameter = token;
-      [accumulator appendString:[parameterValues objectForKey:parameter.string]];
+      [accumulator appendString:parameterValues[parameter.string]];
     }
   }
 
@@ -467,7 +467,7 @@ NSString* kTemporaryBackslashToken = @"/backslash/";
   [NSMutableDictionary dictionaryWithCapacity:[_parameters count]];
   for (SOCParameter* parameter in _parameters) {
     NSString* stringValue = [NSString stringWithFormat:@"%@", [object valueForKeyPath:parameter.string]];
-    [parameterValues setObject:stringValue forKey:parameter.string];
+    parameterValues[parameter.string] = stringValue;
   }
   return [self _stringWithParameterValues:parameterValues];
 }
@@ -486,7 +486,7 @@ NSString* kTemporaryBackslashToken = @"/backslash/";
       stringValue = block(stringValue);
     }
     if (nil != stringValue) {
-      [parameterValues setObject:stringValue forKey:parameter.string];
+      parameterValues[parameter.string] = stringValue;
     }
   }
   return [self _stringWithParameterValues:parameterValues];

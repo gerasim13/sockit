@@ -78,7 +78,7 @@ NSString *sockitBetterURLEncodeString(NSString *unencodedString);
   STAssertTrue([SOCStringFromStringWithObject(@" ", nil) isEqualToString:@" "], @"Should be the same string.");
 
   STAssertTrue([SOCStringFromStringWithObject(@"abcdef", nil) isEqualToString:@"abcdef"], @"Should be the same string.");
-  STAssertTrue([SOCStringFromStringWithObject(@"abcdef", [NSArray array]) isEqualToString:@"abcdef"], @"Should be the same string.");
+  STAssertTrue([SOCStringFromStringWithObject(@"abcdef", @[]) isEqualToString:@"abcdef"], @"Should be the same string.");
 }
 
 
@@ -90,10 +90,8 @@ NSString *sockitBetterURLEncodeString(NSString *unencodedString);
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)testSingleParameterCoding {
-  NSDictionary* obj = [NSDictionary dictionaryWithObjectsAndKeys:
-                       [NSNumber numberWithInt:1337], @"leet",
-                       [NSNumber numberWithInt:5000], @"five",
-                       nil];
+  NSDictionary* obj = @{@"leet": @1337,
+                       @"five": @5000};
   STAssertTrue([SOCStringFromStringWithObject(@":leet", obj) isEqualToString:@"1337"], @"Should be the same string.");
   STAssertTrue([SOCStringFromStringWithObject(@":five", obj) isEqualToString:@"5000"], @"Should be the same string.");
   STAssertTrue([SOCStringFromStringWithObject(@":six", obj) isEqualToString:@"(null)"], @"Should be the same string.");
@@ -102,10 +100,8 @@ NSString *sockitBetterURLEncodeString(NSString *unencodedString);
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)testMultiParameterCoding {
-  NSDictionary* obj = [NSDictionary dictionaryWithObjectsAndKeys:
-                       [NSNumber numberWithInt:1337], @"leet",
-                       [NSNumber numberWithInt:5000], @"five",
-                       nil];
+  NSDictionary* obj = @{@"leet": @1337,
+                       @"five": @5000};
   STAssertTrue([SOCStringFromStringWithObject(@":leet/:five", obj) isEqualToString:@"1337/5000"], @"Should be the same string.");
   STAssertTrue([SOCStringFromStringWithObject(@":five/:five", obj) isEqualToString:@"5000/5000"], @"Should be the same string.");
   STAssertTrue([SOCStringFromStringWithObject(@":five/:five/:five/:five/:five/:five", obj) isEqualToString:@"5000/5000/5000/5000/5000/5000"], @"Should be the same string.");
@@ -114,10 +110,8 @@ NSString *sockitBetterURLEncodeString(NSString *unencodedString);
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)testCharacterEscapes {
-  NSDictionary* obj = [NSDictionary dictionaryWithObjectsAndKeys:
-                       [NSNumber numberWithInt:1337], @"leet",
-                       [NSNumber numberWithInt:5000], @"five",
-                       nil];
+  NSDictionary* obj = @{@"leet": @1337,
+                       @"five": @5000};
 
   STAssertTrue([SOCStringFromStringWithObject(@".", obj) isEqualToString:@"."], @"Should be the same string.");
   STAssertTrue([SOCStringFromStringWithObject(@"\\.", obj) isEqualToString:@"."], @"Should be the same string.");
@@ -144,18 +138,15 @@ NSString *sockitBetterURLEncodeString(NSString *unencodedString);
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)testCollectionOperators {
-  NSDictionary* obj = [NSDictionary dictionaryWithObjectsAndKeys:
-                       [NSNumber numberWithInt:1337], @"leet",
-                       [NSNumber numberWithInt:5000], @"five",
-                       nil];
+  NSDictionary* obj = @{@"leet": @1337,
+                       @"five": @5000};
   STAssertTrue([SOCStringFromStringWithObject(@":@count", obj) isEqualToString:@"2"], @"Should be the same string.");
 }
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)testBlockTransformations {
-    NSDictionary *obj = [NSDictionary dictionaryWithObjectsAndKeys:
-                            @"JUICE|BOX&121", @"password", @"Joe Bob Briggs", @"name", [NSNumber numberWithInt:15], @"group", nil];
+    NSDictionary *obj = @{@"password": @"JUICE|BOX&121", @"name": @"Joe Bob Briggs", @"group": @15};
     SOCPattern *pattern = [SOCPattern patternWithString:@"/people/:group/:name?password=:password"];
     NSString *expectedString = @"/people/15/Joe Bob Briggs?password=JUICE|BOX&121";
     NSString *actualString = [pattern stringFromObject:obj withBlock:nil];
@@ -236,11 +227,11 @@ NSString *sockitBetterURLEncodeString(NSString *unencodedString);
 - (void)testExtractParameterKeyValuesFromSourceString {
   SOCPattern* pattern = [SOCPattern patternWithString:@"soc://:ident/:flv/:dv/:llv/:string"];
   NSDictionary* kvs = [pattern parameterDictionaryFromSourceString:@"soc://3/3.5/6.14/13413143124321/dilly"];
-  STAssertEquals([[kvs objectForKey:@"ident"] intValue], 3, @"Values should be equal.");
-  STAssertEquals([[kvs objectForKey:@"flv"] floatValue], 3.5f, @"Values should be equal.");
-  STAssertEquals([[kvs objectForKey:@"dv"] doubleValue], 6.14, @"Values should be equal.");
-  STAssertEquals([[kvs objectForKey:@"llv"] longLongValue], 13413143124321L, @"Values should be equal.");
-  STAssertTrue([[kvs objectForKey:@"string"] isEqualToString:@"dilly"], @"Values should be equal.");
+  STAssertEquals([kvs[@"ident"] intValue], 3, @"Values should be equal.");
+  STAssertEquals([kvs[@"flv"] floatValue], 3.5f, @"Values should be equal.");
+  STAssertEquals([kvs[@"dv"] doubleValue], 6.14, @"Values should be equal.");
+  STAssertEquals([kvs[@"llv"] longLongValue], 13413143124321L, @"Values should be equal.");
+  STAssertTrue([kvs[@"string"] isEqualToString:@"dilly"], @"Values should be equal.");
 }
 
 @end
