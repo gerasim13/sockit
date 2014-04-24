@@ -72,16 +72,16 @@ NSString* kTemporaryBackslashToken = @"/backslash/";
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (id)copyWithZone:(NSZone *)zone
 {
-    id copy = [[[self class] alloc] init];
-    
-    if (copy)
-    {
-        [copy setPatternString:[self.patternString copy]];
-        [copy setTokens:[self.tokens copy]];
-        [copy setParameters:[self.parameters copy]];
-    }
-    
-    return copy;
+  id copy = [[[self class] alloc] init];
+
+  if (copy)
+  {
+    [copy setPatternString:[self.patternString copy]];
+    [copy setTokens:[self.tokens copy]];
+    [copy setParameters:[self.parameters copy]];
+  }
+
+  return copy;
 }
 
 
@@ -137,7 +137,7 @@ NSString* kTemporaryBackslashToken = @"/backslash/";
     escapedPatternString = [escapedPatternString stringByReplacingOccurrencesOfString: @"\\\\"
                                                                            withString: kTemporaryBackslashToken];
   }
-  
+
   // Scan through the string, creating tokens that are either strings or parameters.
   // Parameters are prefixed with ":".
   NSScanner* scanner = [NSScanner scannerWithString:escapedPatternString];
@@ -201,12 +201,12 @@ NSString* kTemporaryBackslashToken = @"/backslash/";
   }
 
   _tokens = [tokens copy];
-   _parameters = nil;
+  _parameters = nil;
   if ([parameters count] > 0) {
     _parameters = [parameters copy];
   }
-   tokens = nil;
-   parameters = nil;
+  tokens = nil;
+  parameters = nil;
 }
 
 
@@ -216,7 +216,7 @@ NSString* kTemporaryBackslashToken = @"/backslash/";
       && [token rangeOfString:kTemporaryBackslashToken].length == 0) {
     // The common case (faster and creates fewer autoreleased strings).
     return token;
-    
+
   } else {
     // Escaped characters may exist.
     // Create a mutable copy so that we don't excessively create new autoreleased strings.
@@ -303,14 +303,14 @@ NSString* kTemporaryBackslashToken = @"/backslash/";
       NSRange parameterRange = NSMakeRange(parameterLocation, validUpUntil - parameterLocation);
       [values addObject:[string substringWithRange:parameterRange]];
     }
-    
+
     ++tokenIndex;
   }
 
   if (nil != pValues) {
     *pValues = [values copy];
   }
-  
+
   return validUpUntil == stringLength && matchingTokens == [_tokens count];
 }
 
@@ -391,7 +391,7 @@ NSString* kTemporaryBackslashToken = @"/backslash/";
   NSArray* values = nil;
   BOOL succeeded = [self gatherParameterValues:&values fromString:sourceString];
   NSAssert(succeeded, @"The pattern can't be used with this string.");
-  
+
   __unsafe_unretained id returnValue = nil;
 
   if (succeeded) {
@@ -430,7 +430,7 @@ NSString* kTemporaryBackslashToken = @"/backslash/";
     }
 
     result = [kvs copy];
-     kvs = nil;
+    kvs = nil;
   }
 
   return result;
@@ -453,7 +453,7 @@ NSString* kTemporaryBackslashToken = @"/backslash/";
 
   NSString* result = nil;
   result = [accumulator copy];
-   accumulator = nil;
+  accumulator = nil;
   return result;
 }
 
@@ -497,7 +497,7 @@ NSString* kTemporaryBackslashToken = @"/backslash/";
 @implementation SOCParameter
 
 - (void)dealloc {
-   _string = nil;
+  _string = nil;
 }
 
 - (id)initWithString:(NSString *)string {

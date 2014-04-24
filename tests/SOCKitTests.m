@@ -84,7 +84,7 @@ NSString *sockitBetterURLEncodeString(NSString *unencodedString);
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)testSingleParameterCoding {
   NSDictionary* obj = @{@"leet": @1337,
-                       @"five": @5000};
+                        @"five": @5000};
   STAssertTrue([SOCStringFromStringWithObject(@":leet", obj) isEqualToString:@"1337"], @"Should be the same string.");
   STAssertTrue([SOCStringFromStringWithObject(@":five", obj) isEqualToString:@"5000"], @"Should be the same string.");
   STAssertTrue([SOCStringFromStringWithObject(@":six", obj) isEqualToString:@"(null)"], @"Should be the same string.");
@@ -94,7 +94,7 @@ NSString *sockitBetterURLEncodeString(NSString *unencodedString);
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)testMultiParameterCoding {
   NSDictionary* obj = @{@"leet": @1337,
-                       @"five": @5000};
+                        @"five": @5000};
   STAssertTrue([SOCStringFromStringWithObject(@":leet/:five", obj) isEqualToString:@"1337/5000"], @"Should be the same string.");
   STAssertTrue([SOCStringFromStringWithObject(@":five/:five", obj) isEqualToString:@"5000/5000"], @"Should be the same string.");
   STAssertTrue([SOCStringFromStringWithObject(@":five/:five/:five/:five/:five/:five", obj) isEqualToString:@"5000/5000/5000/5000/5000/5000"], @"Should be the same string.");
@@ -104,7 +104,7 @@ NSString *sockitBetterURLEncodeString(NSString *unencodedString);
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)testCharacterEscapes {
   NSDictionary* obj = @{@"leet": @1337,
-                       @"five": @5000};
+                        @"five": @5000};
 
   STAssertTrue([SOCStringFromStringWithObject(@".", obj) isEqualToString:@"."], @"Should be the same string.");
   STAssertTrue([SOCStringFromStringWithObject(@"\\.", obj) isEqualToString:@"."], @"Should be the same string.");
@@ -132,31 +132,31 @@ NSString *sockitBetterURLEncodeString(NSString *unencodedString);
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)testCollectionOperators {
   NSDictionary* obj = @{@"leet": @1337,
-                       @"five": @5000};
+                        @"five": @5000};
   STAssertTrue([SOCStringFromStringWithObject(@":@count", obj) isEqualToString:@"2"], @"Should be the same string.");
 }
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)testBlockTransformations {
-    NSDictionary *obj = @{@"password": @"JUICE|BOX&121", @"name": @"Joe Bob Briggs", @"group": @15};
-    SOCPattern *pattern = [SOCPattern patternWithString:@"/people/:group/:name?password=:password"];
-    NSString *expectedString = @"/people/15/Joe Bob Briggs?password=JUICE|BOX&121";
-    NSString *actualString = [pattern stringFromObject:obj withBlock:nil];
-    STAssertTrue([actualString isEqualToString:expectedString], @"Should be the same string (testing nil block parameter).");
-    STAssertTrue([actualString isEqualToString:[pattern stringFromObject:obj]], @"Should be the same string (testing nil block parameter).");
-    actualString = [pattern stringFromObject:obj withBlock:^NSString *(NSString* interpolatedValue) {
-        return @"Test Message";
-    }];
-    expectedString = @"/people/Test Message/Test Message?password=Test Message";
-    STAssertTrue([actualString isEqualToString:expectedString], @"Should be the same string (testing nil block parameter).");
-    STAssertFalse([actualString isEqualToString:[pattern stringFromObject:obj]], @"Should not be the same string, one was transformed with a block.");
-    actualString = [pattern stringFromObject:obj withBlock:^NSString *(NSString* interpolatedValue) {
-        return sockitBetterURLEncodeString(interpolatedValue);
-    }];
-    expectedString = @"/people/15/Joe%20Bob%20Briggs?password=JUICE%7CBOX%26121";
-    STAssertTrue([actualString isEqualToString:expectedString], @"Should be the same string (testing nil block parameter).");
-    STAssertFalse([actualString isEqualToString:[pattern stringFromObject:obj]], @"Should not be the same string, one was transformed with a block.");
+  NSDictionary *obj = @{@"password": @"JUICE|BOX&121", @"name": @"Joe Bob Briggs", @"group": @15};
+  SOCPattern *pattern = [SOCPattern patternWithString:@"/people/:group/:name?password=:password"];
+  NSString *expectedString = @"/people/15/Joe Bob Briggs?password=JUICE|BOX&121";
+  NSString *actualString = [pattern stringFromObject:obj withBlock:nil];
+  STAssertTrue([actualString isEqualToString:expectedString], @"Should be the same string (testing nil block parameter).");
+  STAssertTrue([actualString isEqualToString:[pattern stringFromObject:obj]], @"Should be the same string (testing nil block parameter).");
+  actualString = [pattern stringFromObject:obj withBlock:^NSString *(NSString* interpolatedValue) {
+    return @"Test Message";
+  }];
+  expectedString = @"/people/Test Message/Test Message?password=Test Message";
+  STAssertTrue([actualString isEqualToString:expectedString], @"Should be the same string (testing nil block parameter).");
+  STAssertFalse([actualString isEqualToString:[pattern stringFromObject:obj]], @"Should not be the same string, one was transformed with a block.");
+  actualString = [pattern stringFromObject:obj withBlock:^NSString *(NSString* interpolatedValue) {
+    return sockitBetterURLEncodeString(interpolatedValue);
+  }];
+  expectedString = @"/people/15/Joe%20Bob%20Briggs?password=JUICE%7CBOX%26121";
+  STAssertTrue([actualString isEqualToString:expectedString], @"Should be the same string (testing nil block parameter).");
+  STAssertFalse([actualString isEqualToString:[pattern stringFromObject:obj]], @"Should not be the same string, one was transformed with a block.");
 }
 
 
@@ -231,8 +231,8 @@ NSString *sockitBetterURLEncodeString(NSString *unencodedString);
 
 // NSString's stringByAddingPercentEscapes doesn't do a complete job (it ignores "/?&", among others)
 NSString *sockitBetterURLEncodeString(NSString *unencodedString) {
-    NSString * encodedString = (NSString *)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes( NULL, (CFStringRef)unencodedString, NULL,
-                                                                                   (CFStringRef)@"!*'();:@&=+$,/?%#[]", NSASCIIStringEncoding ));
-    return encodedString;
+  NSString * encodedString = (NSString *)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes( NULL, (CFStringRef)unencodedString, NULL,
+                                                                                                   (CFStringRef)@"!*'();:@&=+$,/?%#[]", NSASCIIStringEncoding ));
+  return encodedString;
 }
 
