@@ -24,9 +24,7 @@
 /* Begin PBXBuildFile section */
 		660B689114088B4A00EAAFDC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 660B689014088B4A00EAAFDC /* Foundation.framework */; };
 		660B689F14088B4A00EAAFDC /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 660B689E14088B4A00EAAFDC /* SenTestingKit.framework */; };
-		660B68A114088B4A00EAAFDC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 660B68A014088B4A00EAAFDC /* UIKit.framework */; };
 		660B68A214088B4A00EAAFDC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 660B689014088B4A00EAAFDC /* Foundation.framework */; };
-		660B68A414088B4A00EAAFDC /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 660B68A314088B4A00EAAFDC /* CoreGraphics.framework */; };
 		660B68A714088B4A00EAAFDC /* libSOCKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 660B688D14088B4A00EAAFDC /* libSOCKit.a */; };
 		667E34D1140BD732002FD733 /* SOCKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 667E34CF140BD732002FD733 /* SOCKit.m */; };
 		667E34DB140BD776002FD733 /* SOCKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 667E34DA140BD776002FD733 /* SOCKitTests.m */; };
@@ -69,14 +67,11 @@
 		660B689014088B4A00EAAFDC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		660B689D14088B4A00EAAFDC /* SOCKitTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SOCKitTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		660B689E14088B4A00EAAFDC /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
-		660B68A014088B4A00EAAFDC /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
-		660B68A314088B4A00EAAFDC /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = Library/Frameworks/CoreGraphics.framework; sourceTree = DEVELOPER_DIR; };
 		661278FA140BD69B00164779 /* README.mdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.mdown; sourceTree = "<group>"; };
-		6612F706141FEAD500B76B8B /* AUTHORS */ = {isa = PBXFileReference; lastKnownFileType = text; path = AUTHORS; sourceTree = "<group>"; };
 		6612F707141FEAD500B76B8B /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		6612F708141FEAD500B76B8B /* NOTICE */ = {isa = PBXFileReference; lastKnownFileType = text; path = NOTICE; sourceTree = "<group>"; };
-		667E34CE140BD732002FD733 /* SOCKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SOCKit.h; sourceTree = SOURCE_ROOT; };
-		667E34CF140BD732002FD733 /* SOCKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SOCKit.m; sourceTree = SOURCE_ROOT; };
+		667E34CE140BD732002FD733 /* SOCKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SOCKit.h; path = src/SOCKit.h; sourceTree = SOURCE_ROOT; };
+		667E34CF140BD732002FD733 /* SOCKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SOCKit.m; path = src/SOCKit.m; sourceTree = SOURCE_ROOT; };
 		667E34D8140BD75B002FD733 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = tests/en.lproj/InfoPlist.strings; sourceTree = SOURCE_ROOT; };
 		667E34DA140BD776002FD733 /* SOCKitTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SOCKitTests.m; path = tests/SOCKitTests.m; sourceTree = SOURCE_ROOT; };
 		667E34DC140BD77B002FD733 /* SOCKitTests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "SOCKitTests-Info.plist"; path = "tests/SOCKitTests-Info.plist"; sourceTree = SOURCE_ROOT; };
@@ -96,9 +91,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				660B689F14088B4A00EAAFDC /* SenTestingKit.framework in Frameworks */,
-				660B68A114088B4A00EAAFDC /* UIKit.framework in Frameworks */,
 				660B68A214088B4A00EAAFDC /* Foundation.framework in Frameworks */,
-				660B68A414088B4A00EAAFDC /* CoreGraphics.framework in Frameworks */,
 				660B68A714088B4A00EAAFDC /* libSOCKit.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -110,7 +103,6 @@
 			isa = PBXGroup;
 			children = (
 				661278FA140BD69B00164779 /* README.mdown */,
-				6612F706141FEAD500B76B8B /* AUTHORS */,
 				6612F707141FEAD500B76B8B /* LICENSE */,
 				6612F708141FEAD500B76B8B /* NOTICE */,
 				C94F66E3190781610094A075 /* SOCKit */,
@@ -136,8 +128,6 @@
 			children = (
 				660B689014088B4A00EAAFDC /* Foundation.framework */,
 				660B689E14088B4A00EAAFDC /* SenTestingKit.framework */,
-				660B68A014088B4A00EAAFDC /* UIKit.framework */,
-				660B68A314088B4A00EAAFDC /* CoreGraphics.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -199,7 +189,7 @@
 			name = SOCKitTests;
 			productName = SOCKitTests;
 			productReference = 660B689D14088B4A00EAAFDC /* SOCKitTests.octest */;
-			productType = "com.apple.product-type.bundle";
+			productType = "com.apple.product-type.bundle.ocunit-test";
 		};
 /* End PBXNativeTarget section */
 
