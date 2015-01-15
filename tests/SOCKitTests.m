@@ -14,7 +14,7 @@
 // limitations under the License.
 //
 
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 #import <QuartzCore/QuartzCore.h>
 
 #import "SOCKit.h"
@@ -53,7 +53,7 @@ NSString *sockitBetterURLEncodeString(NSString *unencodedString);
 
 @end
 
-@interface SOCKitTests : SenTestCase
+@interface SOCKitTests : XCTestCase
 @end
 
 
@@ -65,19 +65,19 @@ NSString *sockitBetterURLEncodeString(NSString *unencodedString);
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)testEmptyCases {
-  STAssertTrue([SOCStringFromStringWithObject(nil, nil) isEqualToString:@""], @"Should be the same string.");
+  XCTAssertTrue([SOCStringFromStringWithObject(nil, nil) isEqualToString:@""], @"Should be the same string.");
 
-  STAssertTrue([SOCStringFromStringWithObject(@"", nil) isEqualToString:@""], @"Should be the same string.");
-  STAssertTrue([SOCStringFromStringWithObject(@" ", nil) isEqualToString:@" "], @"Should be the same string.");
+  XCTAssertTrue([SOCStringFromStringWithObject(@"", nil) isEqualToString:@""], @"Should be the same string.");
+  XCTAssertTrue([SOCStringFromStringWithObject(@" ", nil) isEqualToString:@" "], @"Should be the same string.");
 
-  STAssertTrue([SOCStringFromStringWithObject(@"abcdef", nil) isEqualToString:@"abcdef"], @"Should be the same string.");
-  STAssertTrue([SOCStringFromStringWithObject(@"abcdef", @[]) isEqualToString:@"abcdef"], @"Should be the same string.");
+  XCTAssertTrue([SOCStringFromStringWithObject(@"abcdef", nil) isEqualToString:@"abcdef"], @"Should be the same string.");
+  XCTAssertTrue([SOCStringFromStringWithObject(@"abcdef", @[]) isEqualToString:@"abcdef"], @"Should be the same string.");
 }
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)testFailureCases {
-  STAssertThrows([SOCPattern patternWithString:@":dilly:isacat"], @"Parameters must be separated by strings.");
+  XCTAssertThrows([SOCPattern patternWithString:@":dilly:isacat"], @"Parameters must be separated by strings.");
 }
 
 
@@ -85,9 +85,9 @@ NSString *sockitBetterURLEncodeString(NSString *unencodedString);
 - (void)testSingleParameterCoding {
   NSDictionary* obj = @{@"leet": @1337,
                         @"five": @5000};
-  STAssertTrue([SOCStringFromStringWithObject(@":leet", obj) isEqualToString:@"1337"], @"Should be the same string.");
-  STAssertTrue([SOCStringFromStringWithObject(@":five", obj) isEqualToString:@"5000"], @"Should be the same string.");
-  STAssertTrue([SOCStringFromStringWithObject(@":six", obj) isEqualToString:@"(null)"], @"Should be the same string.");
+  XCTAssertTrue([SOCStringFromStringWithObject(@":leet", obj) isEqualToString:@"1337"], @"Should be the same string.");
+  XCTAssertTrue([SOCStringFromStringWithObject(@":five", obj) isEqualToString:@"5000"], @"Should be the same string.");
+  XCTAssertTrue([SOCStringFromStringWithObject(@":six", obj) isEqualToString:@"(null)"], @"Should be the same string.");
 }
 
 
@@ -95,9 +95,9 @@ NSString *sockitBetterURLEncodeString(NSString *unencodedString);
 - (void)testMultiParameterCoding {
   NSDictionary* obj = @{@"leet": @1337,
                         @"five": @5000};
-  STAssertTrue([SOCStringFromStringWithObject(@":leet/:five", obj) isEqualToString:@"1337/5000"], @"Should be the same string.");
-  STAssertTrue([SOCStringFromStringWithObject(@":five/:five", obj) isEqualToString:@"5000/5000"], @"Should be the same string.");
-  STAssertTrue([SOCStringFromStringWithObject(@":five/:five/:five/:five/:five/:five", obj) isEqualToString:@"5000/5000/5000/5000/5000/5000"], @"Should be the same string.");
+  XCTAssertTrue([SOCStringFromStringWithObject(@":leet/:five", obj) isEqualToString:@"1337/5000"], @"Should be the same string.");
+  XCTAssertTrue([SOCStringFromStringWithObject(@":five/:five", obj) isEqualToString:@"5000/5000"], @"Should be the same string.");
+  XCTAssertTrue([SOCStringFromStringWithObject(@":five/:five/:five/:five/:five/:five", obj) isEqualToString:@"5000/5000/5000/5000/5000/5000"], @"Should be the same string.");
 }
 
 
@@ -106,26 +106,26 @@ NSString *sockitBetterURLEncodeString(NSString *unencodedString);
   NSDictionary* obj = @{@"leet": @1337,
                         @"five": @5000};
 
-  STAssertTrue([SOCStringFromStringWithObject(@".", obj) isEqualToString:@"."], @"Should be the same string.");
-  STAssertTrue([SOCStringFromStringWithObject(@"\\.", obj) isEqualToString:@"."], @"Should be the same string.");
-  STAssertTrue([SOCStringFromStringWithObject(@":", obj) isEqualToString:@":"], @"Should be the same string.");
-  STAssertTrue([SOCStringFromStringWithObject(@"\\:", obj) isEqualToString:@":"], @"Should be the same string.");
-  STAssertTrue([SOCStringFromStringWithObject(@"@", obj) isEqualToString:@"@"], @"Should be the same string.");
-  STAssertTrue([SOCStringFromStringWithObject(@"\\@", obj) isEqualToString:@"@"], @"Should be the same string.");
+  XCTAssertTrue([SOCStringFromStringWithObject(@".", obj) isEqualToString:@"."], @"Should be the same string.");
+  XCTAssertTrue([SOCStringFromStringWithObject(@"\\.", obj) isEqualToString:@"."], @"Should be the same string.");
+  XCTAssertTrue([SOCStringFromStringWithObject(@":", obj) isEqualToString:@":"], @"Should be the same string.");
+  XCTAssertTrue([SOCStringFromStringWithObject(@"\\:", obj) isEqualToString:@":"], @"Should be the same string.");
+  XCTAssertTrue([SOCStringFromStringWithObject(@"@", obj) isEqualToString:@"@"], @"Should be the same string.");
+  XCTAssertTrue([SOCStringFromStringWithObject(@"\\@", obj) isEqualToString:@"@"], @"Should be the same string.");
 
-  STAssertTrue([SOCStringFromStringWithObject(@":leet\\.value", obj) isEqualToString:@"1337.value"], @"Should be the same string.");
-  STAssertTrue([SOCStringFromStringWithObject(@":leet\\:value", obj) isEqualToString:@"1337:value"], @"Should be the same string.");
-  STAssertTrue([SOCStringFromStringWithObject(@":leet\\@value", obj) isEqualToString:@"1337@value"], @"Should be the same string.");
-  STAssertTrue([SOCStringFromStringWithObject(@":leet\\:\\:value", obj) isEqualToString:@"1337::value"], @"Should be the same string.");
-  STAssertTrue([SOCStringFromStringWithObject(@":leet\\:\\:\\.\\@value", obj) isEqualToString:@"1337::.@value"], @"Should be the same string.");
-  STAssertTrue([SOCStringFromStringWithObject(@"\\\\:leet", obj) isEqualToString:@"\\1337"], @"Should be the same string.");
+  XCTAssertTrue([SOCStringFromStringWithObject(@":leet\\.value", obj) isEqualToString:@"1337.value"], @"Should be the same string.");
+  XCTAssertTrue([SOCStringFromStringWithObject(@":leet\\:value", obj) isEqualToString:@"1337:value"], @"Should be the same string.");
+  XCTAssertTrue([SOCStringFromStringWithObject(@":leet\\@value", obj) isEqualToString:@"1337@value"], @"Should be the same string.");
+  XCTAssertTrue([SOCStringFromStringWithObject(@":leet\\:\\:value", obj) isEqualToString:@"1337::value"], @"Should be the same string.");
+  XCTAssertTrue([SOCStringFromStringWithObject(@":leet\\:\\:\\.\\@value", obj) isEqualToString:@"1337::.@value"], @"Should be the same string.");
+  XCTAssertTrue([SOCStringFromStringWithObject(@"\\\\:leet", obj) isEqualToString:@"\\1337"], @"Should be the same string.");
 
   SOCPattern* pattern = [SOCPattern patternWithString:@"soc://\\:ident"];
-  STAssertTrue([pattern stringMatches:@"soc://:ident"], @"String should conform.");
+  XCTAssertTrue([pattern stringMatches:@"soc://:ident"], @"String should conform.");
   pattern = [SOCPattern patternWithString:@"soc://\\\\:ident"];
-  STAssertTrue([pattern stringMatches:@"soc://\\3"], @"String should conform.");
+  XCTAssertTrue([pattern stringMatches:@"soc://\\3"], @"String should conform.");
   pattern = [SOCPattern patternWithString:@"soc://:ident\\.json"];
-  STAssertTrue([pattern stringMatches:@"soc://3.json"], @"String should conform.");
+  XCTAssertTrue([pattern stringMatches:@"soc://3.json"], @"String should conform.");
 }
 
 
@@ -133,7 +133,7 @@ NSString *sockitBetterURLEncodeString(NSString *unencodedString);
 - (void)testCollectionOperators {
   NSDictionary* obj = @{@"leet": @1337,
                         @"five": @5000};
-  STAssertTrue([SOCStringFromStringWithObject(@":@count", obj) isEqualToString:@"2"], @"Should be the same string.");
+  XCTAssertTrue([SOCStringFromStringWithObject(@":@count", obj) isEqualToString:@"2"], @"Should be the same string.");
 }
 
 
@@ -143,50 +143,50 @@ NSString *sockitBetterURLEncodeString(NSString *unencodedString);
   SOCPattern *pattern = [SOCPattern patternWithString:@"/people/:group/:name?password=:password"];
   NSString *expectedString = @"/people/15/Joe Bob Briggs?password=JUICE|BOX&121";
   NSString *actualString = [pattern stringFromObject:obj withBlock:nil];
-  STAssertTrue([actualString isEqualToString:expectedString], @"Should be the same string (testing nil block parameter).");
-  STAssertTrue([actualString isEqualToString:[pattern stringFromObject:obj]], @"Should be the same string (testing nil block parameter).");
+  XCTAssertTrue([actualString isEqualToString:expectedString], @"Should be the same string (testing nil block parameter).");
+  XCTAssertTrue([actualString isEqualToString:[pattern stringFromObject:obj]], @"Should be the same string (testing nil block parameter).");
   actualString = [pattern stringFromObject:obj withBlock:^NSString *(NSString* interpolatedValue) {
     return @"Test Message";
   }];
   expectedString = @"/people/Test Message/Test Message?password=Test Message";
-  STAssertTrue([actualString isEqualToString:expectedString], @"Should be the same string (testing nil block parameter).");
-  STAssertFalse([actualString isEqualToString:[pattern stringFromObject:obj]], @"Should not be the same string, one was transformed with a block.");
+  XCTAssertTrue([actualString isEqualToString:expectedString], @"Should be the same string (testing nil block parameter).");
+  XCTAssertFalse([actualString isEqualToString:[pattern stringFromObject:obj]], @"Should not be the same string, one was transformed with a block.");
   actualString = [pattern stringFromObject:obj withBlock:^NSString *(NSString* interpolatedValue) {
     return sockitBetterURLEncodeString(interpolatedValue);
   }];
   expectedString = @"/people/15/Joe%20Bob%20Briggs?password=JUICE%7CBOX%26121";
-  STAssertTrue([actualString isEqualToString:expectedString], @"Should be the same string (testing nil block parameter).");
-  STAssertFalse([actualString isEqualToString:[pattern stringFromObject:obj]], @"Should not be the same string, one was transformed with a block.");
+  XCTAssertTrue([actualString isEqualToString:expectedString], @"Should be the same string (testing nil block parameter).");
+  XCTAssertFalse([actualString isEqualToString:[pattern stringFromObject:obj]], @"Should not be the same string, one was transformed with a block.");
 }
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)testOutboundParameters {
   SOCPattern* pattern = [SOCPattern patternWithString:@"soc://:ident"];
-  STAssertTrue([pattern stringMatches:@"soc://3"], @"String should conform.");
-  STAssertTrue([pattern stringMatches:@"soc://33413413454353254235245235"], @"String should conform.");
+  XCTAssertTrue([pattern stringMatches:@"soc://3"], @"String should conform.");
+  XCTAssertTrue([pattern stringMatches:@"soc://33413413454353254235245235"], @"String should conform.");
 
-  STAssertFalse([pattern stringMatches:@""], @"String should not conform.");
-  STAssertFalse([pattern stringMatches:@"soc://"], @"String should not conform.");
+  XCTAssertFalse([pattern stringMatches:@""], @"String should not conform.");
+  XCTAssertFalse([pattern stringMatches:@"soc://"], @"String should not conform.");
 
-  STAssertTrue([pattern stringMatches:@"soc://joe"], @"String might conform.");
+  XCTAssertTrue([pattern stringMatches:@"soc://joe"], @"String might conform.");
 
   pattern = [SOCPattern patternWithString:@"soc://:ident/sandwich"];
-  STAssertTrue([pattern stringMatches:@"soc://3/sandwich"], @"String should conform.");
-  STAssertTrue([pattern stringMatches:@"soc://33413413454353254235245235/sandwich"], @"String should conform.");
+  XCTAssertTrue([pattern stringMatches:@"soc://3/sandwich"], @"String should conform.");
+  XCTAssertTrue([pattern stringMatches:@"soc://33413413454353254235245235/sandwich"], @"String should conform.");
 
-  STAssertFalse([pattern stringMatches:@""], @"String should not conform.");
-  STAssertFalse([pattern stringMatches:@"soc://"], @"String should not conform.");
-  STAssertFalse([pattern stringMatches:@"soc:///sandwich"], @"String should not conform.");
+  XCTAssertFalse([pattern stringMatches:@""], @"String should not conform.");
+  XCTAssertFalse([pattern stringMatches:@"soc://"], @"String should not conform.");
+  XCTAssertFalse([pattern stringMatches:@"soc:///sandwich"], @"String should not conform.");
 
   pattern = [SOCPattern patternWithString:@"soc://:ident/sandwich/:catName"];
-  STAssertTrue([pattern stringMatches:@"soc://3/sandwich/dilly"], @"String should conform.");
-  STAssertTrue([pattern stringMatches:@"soc://33413413454353254235245235/sandwich/dilly"], @"String should conform.");
+  XCTAssertTrue([pattern stringMatches:@"soc://3/sandwich/dilly"], @"String should conform.");
+  XCTAssertTrue([pattern stringMatches:@"soc://33413413454353254235245235/sandwich/dilly"], @"String should conform.");
 
-  STAssertFalse([pattern stringMatches:@""], @"String should not conform.");
-  STAssertFalse([pattern stringMatches:@"soc://"], @"String should not conform.");
-  STAssertFalse([pattern stringMatches:@"soc://33413413454353254235245235/sandwich/"], @"String should not conform.");
-  STAssertFalse([pattern stringMatches:@"soc:///sandwich/"], @"String should not conform.");
+  XCTAssertFalse([pattern stringMatches:@""], @"String should not conform.");
+  XCTAssertFalse([pattern stringMatches:@"soc://"], @"String should not conform.");
+  XCTAssertFalse([pattern stringMatches:@"soc://33413413454353254235245235/sandwich/"], @"String should not conform.");
+  XCTAssertFalse([pattern stringMatches:@"soc:///sandwich/"], @"String should not conform.");
 }
 
 
@@ -194,25 +194,25 @@ NSString *sockitBetterURLEncodeString(NSString *unencodedString);
 - (void)testPerformSelectorOnObjectWithSourceString {
   SOCPattern* pattern = [SOCPattern patternWithString:@"soc://:ident/:flv/:dv/:llv/:string"];
   SOCTestObject* testObject = [pattern performSelector:@selector(initWithId:floatValue:doubleValue:longLongValue:stringValue:userInfo:) onObject:[SOCTestObject class] sourceString:@"soc://3/3.5/6.14/13413143124321/dilly"];
-  STAssertEquals(testObject.ident, (NSInteger)3, @"Values should be equal.");
-  STAssertEquals(testObject.flv, (CGFloat)3.5, @"Values should be equal.");
-  STAssertEquals(testObject.dv, 6.14, @"Values should be equal.");
-  STAssertEquals(testObject.llv, (long long)13413143124321, @"Values should be equal.");
-  STAssertTrue([testObject.string isEqualToString:@"dilly"], @"Values should be equal.");
+  XCTAssertEqual(testObject.ident, (NSInteger)3, @"Values should be equal.");
+  XCTAssertEqual(testObject.flv, (CGFloat)3.5, @"Values should be equal.");
+  XCTAssertEqual(testObject.dv, 6.14, @"Values should be equal.");
+  XCTAssertEqual(testObject.llv, (long long)13413143124321, @"Values should be equal.");
+  XCTAssertTrue([testObject.string isEqualToString:@"dilly"], @"Values should be equal.");
 
   testObject = [pattern performSelector:@selector(initWithId:floatValue:doubleValue:longLongValue:stringValue:) onObject:[SOCTestObject class] sourceString:@"soc://3/3.5/6.14/13413143124321/dilly"];
-  STAssertEquals(testObject.ident, (NSInteger)3, @"Values should be equal.");
-  STAssertEquals(testObject.flv, (CGFloat)3.5, @"Values should be equal.");
-  STAssertEquals(testObject.dv, 6.14, @"Values should be equal.");
-  STAssertEquals(testObject.llv, (long long)13413143124321, @"Values should be equal.");
-  STAssertTrue([testObject.string isEqualToString:@"dilly"], @"Values should be equal.");
+  XCTAssertEqual(testObject.ident, (NSInteger)3, @"Values should be equal.");
+  XCTAssertEqual(testObject.flv, (CGFloat)3.5, @"Values should be equal.");
+  XCTAssertEqual(testObject.dv, 6.14, @"Values should be equal.");
+  XCTAssertEqual(testObject.llv, (long long)13413143124321, @"Values should be equal.");
+  XCTAssertTrue([testObject.string isEqualToString:@"dilly"], @"Values should be equal.");
 
   pattern = [SOCPattern patternWithString:@"soc://:ident"];
   [pattern performSelector:@selector(setIdent:) onObject:testObject sourceString:@"soc://6"];
-  STAssertEquals(testObject.ident, (NSInteger)6, @"Values should be equal.");
+  XCTAssertEqual(testObject.ident, (NSInteger)6, @"Values should be equal.");
 
   [pattern performSelector:@selector(setLlv:) onObject:testObject sourceString:@"soc://6"];
-  STAssertEquals(testObject.llv, (long long)6, @"Values should be equal.");
+  XCTAssertEqual(testObject.llv, (long long)6, @"Values should be equal.");
 }
 
 
@@ -220,11 +220,11 @@ NSString *sockitBetterURLEncodeString(NSString *unencodedString);
 - (void)testExtractParameterKeyValuesFromSourceString {
   SOCPattern* pattern = [SOCPattern patternWithString:@"soc://:ident/:flv/:dv/:llv/:string"];
   NSDictionary* kvs = [pattern parameterDictionaryFromSourceString:@"soc://3/3.5/6.14/13413143124321/dilly"];
-  STAssertEquals([kvs[@"ident"] intValue], 3, @"Values should be equal.");
-  STAssertEquals([kvs[@"flv"] floatValue], 3.5f, @"Values should be equal.");
-  STAssertEquals([kvs[@"dv"] doubleValue], 6.14, @"Values should be equal.");
-  STAssertEquals([kvs[@"llv"] longLongValue], 13413143124321L, @"Values should be equal.");
-  STAssertTrue([kvs[@"string"] isEqualToString:@"dilly"], @"Values should be equal.");
+  XCTAssertEqual([kvs[@"ident"] intValue], 3, @"Values should be equal.");
+  XCTAssertEqual([kvs[@"flv"] floatValue], 3.5f, @"Values should be equal.");
+  XCTAssertEqual([kvs[@"dv"] doubleValue], 6.14, @"Values should be equal.");
+  XCTAssertEqual([kvs[@"llv"] longLongValue], 13413143124321L, @"Values should be equal.");
+  XCTAssertTrue([kvs[@"string"] isEqualToString:@"dilly"], @"Values should be equal.");
 }
 
 @end

@@ -23,7 +23,6 @@
 
 /* Begin PBXBuildFile section */
 		660B689114088B4A00EAAFDC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 660B689014088B4A00EAAFDC /* Foundation.framework */; };
-		660B689F14088B4A00EAAFDC /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 660B689E14088B4A00EAAFDC /* SenTestingKit.framework */; };
 		660B68A214088B4A00EAAFDC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 660B689014088B4A00EAAFDC /* Foundation.framework */; };
 		660B68A714088B4A00EAAFDC /* libSOCKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 660B688D14088B4A00EAAFDC /* libSOCKit.a */; };
 		667E34D1140BD732002FD733 /* SOCKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 667E34CF140BD732002FD733 /* SOCKit.m */; };
@@ -63,10 +62,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		005E6EA81A6848EE00DA99CC /* AUTHORS */ = {isa = PBXFileReference; lastKnownFileType = text; path = AUTHORS; sourceTree = "<group>"; };
 		660B688D14088B4A00EAAFDC /* libSOCKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSOCKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		660B689014088B4A00EAAFDC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		660B689D14088B4A00EAAFDC /* SOCKitTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SOCKitTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
-		660B689E14088B4A00EAAFDC /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		660B689D14088B4A00EAAFDC /* SOCKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SOCKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		661278FA140BD69B00164779 /* README.mdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.mdown; sourceTree = "<group>"; };
 		6612F707141FEAD500B76B8B /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		6612F708141FEAD500B76B8B /* NOTICE */ = {isa = PBXFileReference; lastKnownFileType = text; path = NOTICE; sourceTree = "<group>"; };
@@ -90,7 +89,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				660B689F14088B4A00EAAFDC /* SenTestingKit.framework in Frameworks */,
 				660B68A214088B4A00EAAFDC /* Foundation.framework in Frameworks */,
 				660B68A714088B4A00EAAFDC /* libSOCKit.a in Frameworks */,
 			);
@@ -103,6 +101,7 @@
 			isa = PBXGroup;
 			children = (
 				661278FA140BD69B00164779 /* README.mdown */,
+				005E6EA81A6848EE00DA99CC /* AUTHORS */,
 				6612F707141FEAD500B76B8B /* LICENSE */,
 				6612F708141FEAD500B76B8B /* NOTICE */,
 				C94F66E3190781610094A075 /* SOCKit */,
@@ -118,7 +117,7 @@
 			isa = PBXGroup;
 			children = (
 				660B688D14088B4A00EAAFDC /* libSOCKit.a */,
-				660B689D14088B4A00EAAFDC /* SOCKitTests.octest */,
+				660B689D14088B4A00EAAFDC /* SOCKitTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -127,7 +126,6 @@
 			isa = PBXGroup;
 			children = (
 				660B689014088B4A00EAAFDC /* Foundation.framework */,
-				660B689E14088B4A00EAAFDC /* SenTestingKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -188,8 +186,8 @@
 			);
 			name = SOCKitTests;
 			productName = SOCKitTests;
-			productReference = 660B689D14088B4A00EAAFDC /* SOCKitTests.octest */;
-			productType = "com.apple.product-type.bundle.ocunit-test";
+			productReference = 660B689D14088B4A00EAAFDC /* SOCKitTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -197,7 +195,7 @@
 		660B688414088B4900EAAFDC /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0500;
+				LastUpgradeCheck = 0610;
 				ORGANIZATIONNAME = "Jeff Verkoeyen";
 			};
 			buildConfigurationList = 660B688714088B4900EAAFDC /* Build configuration list for PBXProject "SOCKit" */;
@@ -322,15 +320,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -347,7 +346,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 			};
@@ -357,15 +356,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -375,7 +375,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -415,11 +415,10 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+					"$(inherited)",
 				);
 				INFOPLIST_FILE = "tests/SOCKitTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				WRAPPER_EXTENSION = octest;
 			};
 			name = Debug;
 		};
@@ -429,11 +428,10 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+					"$(inherited)",
 				);
 				INFOPLIST_FILE = "tests/SOCKitTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				WRAPPER_EXTENSION = octest;
 			};
 			name = Release;
 		};
