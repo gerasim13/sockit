@@ -399,7 +399,12 @@ NSString* kTemporaryBackslashToken = @"/backslash/";
   NSMutableDictionary* parameterValues =
   [NSMutableDictionary dictionaryWithCapacity:[_parameters count]];
   for (SOCParameter* parameter in _parameters) {
-    NSString* stringValue = [NSString stringWithFormat:@"%@", [object valueForKeyPath:parameter.string]];
+    NSString *stringValue;
+    if ([object respondsToSelector:NSSelectorFromString(parameter.string)]) {
+        stringValue = [NSString stringWithFormat:@"%@", [object valueForKeyPath:parameter.string]];
+    } else {
+        stringValue = [NSString stringWithFormat:@":%@", parameter.string];
+    }
     [parameterValues setObject:stringValue forKey:parameter.string];
   }
   return [self _stringWithParameterValues:parameterValues];
@@ -411,7 +416,12 @@ NSString* kTemporaryBackslashToken = @"/backslash/";
   }
   NSMutableDictionary* parameterValues = [NSMutableDictionary dictionaryWithCapacity:[_parameters count]];
   for (SOCParameter* parameter in _parameters) {
-    NSString* stringValue = [NSString stringWithFormat:@"%@", [object valueForKeyPath:parameter.string]];
+    NSString *stringValue;
+    if ([object respondsToSelector:NSSelectorFromString(parameter.string)]) {
+        stringValue = [NSString stringWithFormat:@"%@", [object valueForKeyPath:parameter.string]];
+    } else {
+        stringValue = [NSString stringWithFormat:@":%@", parameter.string];
+    }
     if (nil != block) {
       stringValue = block(stringValue);
     }
