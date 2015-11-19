@@ -19,6 +19,8 @@
 @property (nonatomic, assign) SEL                    aSelector;
 @property (nonatomic, assign) Class                  aClass;
 @property (nonatomic, strong) SOCPattern            *pattern;
+@property (nonatomic, strong) SOCKNavigationRoute   *parentRoute;
+@property (nonatomic, strong) NSString              *parentPath;
 @property (nonatomic, weak  ) NSObject              *object;
 
 - (instancetype)initWithPatternString:(NSString*)string
@@ -75,7 +77,7 @@
       return ((id<SOCKNavigatorMappable> (*)(id, SEL, id))impl)(self.object, self.aSelector, parameter);
     }
   }
-  else if (self.class)
+  else if (self.aClass)
   {
     if ([self.aClass respondsToSelector:self.aSelector])
     {
@@ -131,9 +133,33 @@
   [_routes addObject:route];
 }
 
-- (void)from:(NSString *)from toBlock:(SOCKNavigationMapBlock)blk
+- (void)from:(NSString*)from toBlock:(SOCKNavigationMapBlock)blk
 {
   SOCKNavigationRoute *route = [[SOCKNavigationRoute alloc] initWithPatternString:from object:nil class:nil selector:nil block:blk];
+  [_routes addObject:route];
+}
+
+- (void)from:(NSString*)from parent:(NSString*)parent toClass:(Class)to selector:(SEL)sel
+{
+  SOCKNavigationRoute *route = [[SOCKNavigationRoute alloc] initWithPatternString:from object:nil class:to selector:sel block:nil];
+  route.parentRoute          = [self routeMatchedToString:parent];
+  route.parentPath           = from;
+  [_routes addObject:route];
+}
+
+- (void)from:(NSString*)from parent:(NSString*)parent toObject:(NSObject*)to selector:(SEL)sel
+{
+  SOCKNavigationRoute *route = [[SOCKNavigationRoute alloc] initWithPatternString:from object:to class:nil selector:sel block:nil];
+  route.parentRoute          = [self routeMatchedToString:parent];
+  route.parentPath           = from;
+  [_routes addObject:route];
+}
+
+- (void)from:(NSString*)from parent:(NSString*)parent toBlock:(SOCKNavigationMapBlock)block
+{
+  SOCKNavigationRoute *route = [[SOCKNavigationRoute alloc] initWithPatternString:from object:nil class:nil selector:nil block:block];
+  route.parentRoute          = [self routeMatchedToString:parent];
+  route.parentPath           = from;
   [_routes addObject:route];
 }
 
@@ -177,6 +203,17 @@
 - (void)navigateToPath:(NSString*)path withQuery:(NSDictionary*)query
 {
   SOCKNavigationRoute *route = [_navigationMap routeMatchedToString:path];
+  [self navigateToRoute:route withPath:path query:query];
+}
+
+- (void)navigateToRoute:(SOCKNavigationRoute*)route withPath:(NSString*)path query:(NSDictionary*)query
+{
+  // Navigate to parent
+  if (route.parentRoute)
+  {
+    NSParameterAssert(route.parentPath);
+    [self navigateToRoute:route.parentRoute withPath:route.parentPath query:query];
+  }
   // Perform route
   if ([route respondsToSelector:@selector(performRoute:)])
   {
